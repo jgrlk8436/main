@@ -1,8 +1,6 @@
- channels:
-     - conda-forge
- dependencies:
-     - dlib
-     - numpy
-     - scipy
-     - opencv
-     - face_recognition
+name: dlib
+channels:
+  - conda-forge
+dependencies:
+  - streamlit >= 0.73
+  - dlib
