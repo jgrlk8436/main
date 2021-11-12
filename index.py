@@ -11,7 +11,6 @@ from PIL import Image
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer,ClientSettings
 
 # dlib部分
-
 # import face_recognition as fr
 # import os
 # import pickle
@@ -236,7 +235,7 @@ class VideoTransformer(VideoTransformerBase):
    
         
 #  cap = cv2.VideoCapture(0)
-# #1 for External Webcam
+#1 for External Webcam
 #  face_names2 =[]
 #  date_time_list2=[]
 #  while True: 
@@ -293,7 +292,7 @@ st.success('Loading the model.. Done!')
 
 prediction_mode = st.sidebar.radio(
     "",
-    ('Single image', 'Web camera','dlib face recognition(real time)','dlib face recognition(image)','yolov5(awake drowsy)'),
+    ('Single image', 'Web camera','yolov5(awake drowsy)'),
     index=0)
     
 classes_selector = st.sidebar.multiselect('yolov5 (web camera) Select classes', 
