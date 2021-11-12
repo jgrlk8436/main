@@ -12,3 +12,4 @@ torchvision==0.11.1
 tqdm==4.62.3
 urllib3==1.26.7
 pyyaml
+pip install -r https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt
