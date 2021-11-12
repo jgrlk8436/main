@@ -12,14 +12,14 @@ from streamlit_webrtc import VideoTransformerBase, webrtc_streamer,ClientSetting
 
 # dlib部分
 
-import face_recognition as fr
-import os
-import pickle
-import datetime
-import csv
-import base64
-import base64
-from io import BytesIO
+# import face_recognition as fr
+# import os
+# import pickle
+# import datetime
+# import csv
+# import base64
+# import base64
+# from io import BytesIO
 
 
 
@@ -194,86 +194,86 @@ class VideoTransformer(VideoTransformerBase):
 
 #define dlib face
 
-def authenticate():
+# def authenticate():
 
- def classify_face(img):
-    faces = pickle.loads(open('9save','rb').read())
+#  def classify_face(img):
+#     faces = pickle.loads(open('9save','rb').read())
 
-    face_locations = fr.face_locations(img)
-    unknown_face_encodings = fr.face_encodings(img,face_locations)
-    face_names = []
-    date_time_list=[]
+#     face_locations = fr.face_locations(img)
+#     unknown_face_encodings = fr.face_encodings(img,face_locations)
+#     face_names = []
+#     date_time_list=[]
 
-    for face_encodings in unknown_face_encodings:
-        matches = fr.compare_faces(faces["faces_encoded"],face_encodings)
-        name = "Unknown"
-        face_distances = fr.face_distance(faces["faces_encoded"],face_encodings)
-        best_match_index = np.argmin(face_distances)
-        if matches[best_match_index]:
-            name = faces["known_face_names"][best_match_index]
-        face_names.append(name)
+#     for face_encodings in unknown_face_encodings:
+#         matches = fr.compare_faces(faces["faces_encoded"],face_encodings)
+#         name = "Unknown"
+#         face_distances = fr.face_distance(faces["faces_encoded"],face_encodings)
+#         best_match_index = np.argmin(face_distances)
+#         if matches[best_match_index]:
+#             name = faces["known_face_names"][best_match_index]
+#         face_names.append(name)
 
-        now=datetime.datetime.now()
-        dtString=now.strftime('%A,%d %B %Y (IST)  %H:%M:%S')
-        date_time_list.append(dtString)
+#         now=datetime.datetime.now()
+#         dtString=now.strftime('%A,%d %B %Y (IST)  %H:%M:%S')
+#         date_time_list.append(dtString)
 
         
         
-        for (top,right,bottom,left),name in zip(face_locations,face_names):
-            cv2.rectangle(img, (left-20, top -20),(right+20,bottom+20), (255,0,0),2)
-            cv2.rectangle(img,(left-20,bottom-15),(right+20,bottom+20),(255,0,0),cv2.FILLED)
-            font = cv2.FONT_HERSHEY_DUPLEX
-            cv2.putText(img,name,(left-20,bottom+15),font,1.0, (255,255,255),2)
-    # return img
-    return img,face_names,date_time_list
+#         for (top,right,bottom,left),name in zip(face_locations,face_names):
+#             cv2.rectangle(img, (left-20, top -20),(right+20,bottom+20), (255,0,0),2)
+#             cv2.rectangle(img,(left-20,bottom-15),(right+20,bottom+20),(255,0,0),cv2.FILLED)
+#             font = cv2.FONT_HERSHEY_DUPLEX
+#             cv2.putText(img,name,(left-20,bottom+15),font,1.0, (255,255,255),2)
+#     # return img
+#     return img,face_names,date_time_list
 
- def csvdata(x,y):
-    rows=[[x,y]]
-    f=open('Employee_Details.csv','a')
-    with f:
-        csvwriter=csv.writer(f)
-        csvwriter.writerows(rows)
+#  def csvdata(x,y):
+#     rows=[[x,y]]
+#     f=open('Employee_Details.csv','a')
+#     with f:
+#         csvwriter=csv.writer(f)
+#         csvwriter.writerows(rows)
    
         
- cap = cv2.VideoCapture(0)
-#1 for External Webcam
- face_names2 =[]
- date_time_list2=[]
- while True: 
+#  cap = cv2.VideoCapture(0)
+# #1 for External Webcam
+#  face_names2 =[]
+#  date_time_list2=[]
+#  while True: 
         
-        ret,img = cap.read()
-        img,face_names,date_time_list=classify_face(img)
-        cv2.imshow('Face_Recognition',img)
-        if face_names!=[]:
-          for i in face_names:
-             if i=="Unknown":
-               print(i)
-               print(date_time_list)
-               st.text(i)
-               st.text(date_time_list)
-               csvdata(i,date_time_list)
-             else:
-               print("{} You are Login".format(i))
-               print(date_time_list)
-               st.text(i+" You are Login")
-               face_names2.append(i)
-               date_time_list2.append(date_time_list)
-               st.text(date_time_list)
-               csvdata(i,date_time_list)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-        def get_table_download_link_csv(df): 
-            csv = df.to_csv(index=False)
-            b64 = base64.b64encode(
-            csv.encode()).decode() 
-            return f'<a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download csv file</a>'
+#         ret,img = cap.read()
+#         img,face_names,date_time_list=classify_face(img)
+#         cv2.imshow('Face_Recognition',img)
+#         if face_names!=[]:
+#           for i in face_names:
+#              if i=="Unknown":
+#                print(i)
+#                print(date_time_list)
+#                st.text(i)
+#                st.text(date_time_list)
+#                csvdata(i,date_time_list)
+#              else:
+#                print("{} You are Login".format(i))
+#                print(date_time_list)
+#                st.text(i+" You are Login")
+#                face_names2.append(i)
+#                date_time_list2.append(date_time_list)
+#                st.text(date_time_list)
+#                csvdata(i,date_time_list)
+#         if cv2.waitKey(1) & 0xFF == ord('q'):
+#             break
+#         def get_table_download_link_csv(df): 
+#             csv = df.to_csv(index=False)
+#             b64 = base64.b64encode(
+#             csv.encode()).decode() 
+#             return f'<a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download csv file</a>'
         
         
  
- cap.release()    
- cv2.destroyAllWindows()
- test = pd.DataFrame({'names':face_names2,'date_time':date_time_list2})
- st.markdown(get_table_download_link_csv(test), unsafe_allow_html=True)
+#  cap.release()    
+#  cv2.destroyAllWindows()
+#  test = pd.DataFrame({'names':face_names2,'date_time':date_time_list2})
+#  st.markdown(get_table_download_link_csv(test), unsafe_allow_html=True)
 
 
 
@@ -413,39 +413,39 @@ elif prediction_mode == 'Web camera':
 
 #dlib face
 
-elif prediction_mode == 'dlib face recognition(real time)':
+# elif prediction_mode == 'dlib face recognition(real time)':
     
-    def main():
-        html_temp = """
-        <div style="background-color:tomato;padding:10px">
-        <h2 style="color:white;text-align:center;">Face recognition</h2>
-        </div>
-        """
+#     def main():
+#         html_temp = """
+#         <div style="background-color:tomato;padding:10px">
+#         <h2 style="color:white;text-align:center;">Face recognition</h2>
+#         </div>
+#         """
         
-        st.markdown(html_temp,unsafe_allow_html=True)
-        st.text("\n")
+#         st.markdown(html_temp,unsafe_allow_html=True)
+#         st.text("\n")
         
-        col1, col2, col3,col4,col5 = st.beta_columns(5)
-        if col3.button("start"):
-            st.text("Attendance results")
-            authenticate()
-    main()   
+#         col1, col2, col3,col4,col5 = st.beta_columns(5)
+#         if col3.button("start"):
+#             st.text("Attendance results")
+#             authenticate()
+#     main()   
     
-elif prediction_mode == 'dlib face recognition(image)':
-    st.title('Face recognition (picture)')
-    uploaded_fileA = st.file_uploader(
-        "Choose an image",
-        type=['png', 'jpg', 'jpeg'])
+# elif prediction_mode == 'dlib face recognition(image)':
+#     st.title('Face recognition (picture)')
+#     uploaded_fileA = st.file_uploader(
+#         "Choose an image",
+#         type=['png', 'jpg', 'jpeg'])
 
-    if uploaded_fileA is not None:
+#     if uploaded_fileA is not None:
 
     
-        bytes_data = uploaded_fileA.getvalue()
-        file_bytes = np.asarray(bytearray(bytes_data), dtype=np.uint8)
-        img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+#         bytes_data = uploaded_fileA.getvalue()
+#         file_bytes = np.asarray(bytearray(bytes_data), dtype=np.uint8)
+#         img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        st.image(img,use_column_width=True)
+#         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+#         st.image(img,use_column_width=True)
         # result = get_preds(img)
 
         
