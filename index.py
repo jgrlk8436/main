@@ -11,7 +11,7 @@ from PIL import Image
 from streamlit_webrtc import VideoTransformerBase, webrtc_streamer,ClientSettings
 
 # dlib部分
-import dlib
+
 import face_recognition as fr
 import os
 import pickle
