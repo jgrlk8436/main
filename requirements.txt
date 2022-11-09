@@ -13,3 +13,4 @@ tqdm==4.62.3
 urllib3==1.26.7
 pyyaml
 Ipython
+psutil
